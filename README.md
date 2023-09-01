@@ -3,7 +3,8 @@
 
 WS Burroughs, **The Job**
 
-This is a basic script to cut up and merge 3 audio files. 
+This is a basic script to cut up and merge 3 audio files. The volume is normalized across all three. Now and then there are reversals of the audio segment, and now and a segment will be slowed down or sped up.
 
 Dependencies: pydub
+
 How to: this initial release only works from the command line. Edit the file to change what the input files should be and any of the parameters.
