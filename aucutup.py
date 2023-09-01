@@ -30,28 +30,30 @@ class AuCut:
         # tuples so the len is only calculated once
         afiles = [[self.audio_1, len(self.audio_1)], [self.audio_2, len(self.audio_2)], [self.audio_3, len(self.audio_3)]]
         # 60 second output file
-        reverse = 0
+        fiddlewithit = 0
         while len(self.output_file)/1000 < 60:
             # select one of the input files at random
             f = random.choice(afiles)
-            # change speed?
-            speed = random.randint(-1, 1)
             # select a random slice from the file
             portion_start = random.randint(0, f[1])
             # grab 2 seconds
             portion = f[0][portion_start:portion_start+self.config.avg_segment_length]
-            # reverse this segment? throttle this; only do it every 3 times the random lands here
+            # muck with this segment? throttle this; only do it every 3 times the random lands here
             if random.randint(0,1):
-                reverse += 1
-                if reverse > 3:
-                        reverse = 0
+                fiddlewithit += 1
+                if fiddlewithit > 3:
+                        fiddlewithit = 0
                         portion = portion.reverse()
+#                else:
+                    #if len(portion) > 150:
+                        #portion = effects.speedup(portion, random.randrange(-1, 1))
             #if speed != 0:
             #    portion = effects.speedup(portion, random.randrange(-10, 10))
             if len(self.output_file) > 50:
                 self.output_file = self.output_file.append(portion, 50)
             else:
                 self.output_file = self.output_file.append(portion, 0)
+
         self.output_file = effects.normalize(self.output_file)
 
 
