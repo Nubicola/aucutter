@@ -2,12 +2,11 @@
 #import argparse
 from pydub import AudioSegment
 import random
-import array
 
 class AuCutConfig:
     def __init__(self):
         self.output_file_name = "aucut.mp3"
-        self.avg_segment_length = 1000 # in ms
+        self.avg_segment_length = 2000 # in ms
         self.variability = 0
         self.rando_seed = ""
 
@@ -36,9 +35,8 @@ class AuCut:
             # select a random slice from the file
             portion_start = random.randint(0, f[1])
             # grab 2 seconds
-            portion = f[0][portion_start:portion_start+2000]
+            portion = f[0][portion_start:portion_start+self.config.avg_segment_length]
             if len(self.output_file) > 50:
-                print("some crossfade")
                 self.output_file = self.output_file.append(portion, 50)
             else:
                 self.output_file = self.output_file.append(portion, 0)
